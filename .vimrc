@@ -3,6 +3,21 @@ if(has("win32") || has("win95") || has("win64") || has("win16")) "判定当前�
 else
     let g:iswindows=0
 endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+"pathogen
+""""""""""""""""""""""""""""""""""""""""""""""""""
+execute pathogen#infect()
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+"trivial things
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader=";"
 set nocompatible "不要vim模仿vi模式，建议设置，否则会有很多不兼容的问题
 syntax on"打开高亮
 set number
@@ -37,7 +52,7 @@ endif
 "字体的设置
 set guifont=Bitstream_Vera_Sans_Mono:h9:cANSI "记住空格用下划线代替
 set gfw=幼圆:h10:cGB2312
-
+set laststatus=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -110,18 +125,50 @@ endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-"taglist
+"tagbar
 """"""""""""""""""""""""""""""""""""""""""""""""""
-"进行Tlist的设置
-"TlistUpdate可以更新tags
-map <F3> :silent! Tlist<CR> "按下F3就可以呼出了
-let Tlist_Ctags_Cmd='ctags' "因为我们放在环境变量里，所以可以直接执行
-let Tlist_Use_Right_Window=1 "让窗口显示在右边，0的话就是显示在左边
-let Tlist_Show_One_File=0 "让taglist可以同时展示多个文件的函数列表，如果想只有1个，设置为1
-let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
-let Tlist_Exit_OnlyWindow=1 "当taglist是最后一个分割窗口时，自动推出vim
-let Tlist_Process_File_Always=0 "是否一直处理tags.1:处理;0:不处理。不是一直实时更新tags，因为没有必要
-let Tlist_Inc_Winwidth=0
+let tagbar_left=1 
+" 设置显示／隐藏标签列表子窗口的快捷键。速记：tag list 
+nnoremap <Leader>tl :TagbarToggle<CR> 
+" 设置标签子窗口的宽度 
+let tagbar_width=32 
+" tagbar 子窗口中不显示冗余帮助信息 
+let g:tagbar_compact=1
+" 设置 ctags 对哪些代码元素生成标签
+let g:tagbar_type_cpp = {
+    \ 'kinds' : [
+        \ 'd:macros:1',
+        \ 'g:enums',
+        \ 't:typedefs:0:0',
+        \ 'e:enumerators:0:0',
+        \ 'n:namespaces',
+        \ 'c:classes',
+        \ 's:structs',
+        \ 'u:unions',
+        \ 'f:functions',
+        \ 'm:members:0:0',
+        \ 'v:global:0:0',
+        \ 'x:external:0:0',
+        \ 'l:local:0:0'
+     \ ],
+     \ 'sro'        : '::',
+     \ 'kind2scope' : {
+         \ 'g' : 'enum',
+         \ 'n' : 'namespace',
+         \ 'c' : 'class',
+         \ 's' : 'struct',
+         \ 'u' : 'union'
+     \ },
+     \ 'scope2kind' : {
+         \ 'enum'      : 'g',
+         \ 'namespace' : 'n',
+         \ 'class'     : 'c',
+         \ 'struct'    : 's',
+         \ 'union'     : 'u'
+     \ }
+	 \ }
+
+
 
 
 
