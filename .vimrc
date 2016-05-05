@@ -23,7 +23,8 @@ syntax on"打开高亮
 set number
 
 if has("autocmd")
-    filetype plugin indent on "根据文件进行缩进
+	"根据文件进行缩进
+    filetype plugin indent on 
     augroup vimrcEx
         au!
         autocmd FileType text setlocal textwidth=78
@@ -37,7 +38,9 @@ else
     set autoindent " always set autoindenting on 
 endif " has("autocmd")
 set tabstop=4 "让一个tab等于4个空格
-set vb t_vb=
+set shiftwidth=4 "格式化时制表符占用空格数
+set softtabstop=4 "把连续数量的空格视为一个制表符
+
 set nowrap "不自动换行
 set hlsearch "高亮显示结果
 set incsearch "在输入要搜索的文字时，vim会实时匹配
@@ -52,7 +55,17 @@ endif
 "字体的设置
 set guifont=Bitstream_Vera_Sans_Mono:h9:cANSI "记住空格用下划线代替
 set gfw=幼圆:h10:cGB2312
+" 配色方案
+set background=dark
+" colorscheme solarized
+
+
 set laststatus=2
+
+" 高亮显示当前行/列
+set cursorline
+" set cursorcolumn
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,6 +190,52 @@ let g:tagbar_type_cpp = {
 """"""""""""""""""""""""""""""""""""""""""""""""""
 set completeopt=menu
 
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompliteMe
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
+" YCM 补全菜单配色
+" 菜单
+highlight Pmenu ctermfg=8 ctermbg=79 guifg=#005f87 guibg=#EEE8D5
+" 选中项
+highlight PmenuSel ctermfg=8 ctermbg=85 guifg=#AFD700 guibg=#106900
+
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+" let g:ycm_confirm_extra_conf=0
+
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" 引入 C++ 标准库 tags
+set tags+=/data/misc/software/app/vim/stdcpp.tags
+
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+inoremap <leader>; <C-x><C-o>
+
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+
+" 基于语义的代码导航, 只能是 #include 或已打开的文件
+nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>je :YcmCompleter GoToDefinition<CR>
+
+" go下面不要映射gd
+" let g:go_def_mapping_enabled = 0
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
